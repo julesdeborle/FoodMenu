@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/myfont"
             android:id="@+id/tv_home"
-            android:text="Home"
+            android:text="Menus"
             android:textColor="@color/accent"
             android:textSize="@dimen/_25ssp"
             android:textStyle="bold" />
@@ -92,7 +92,7 @@
         android:layout_marginTop="@dimen/_18sdp"
         android:fontFamily="@font/myfont"
         android:id="@+id/tv_popular_items"
-        android:text="Popular Items"
+        android:text="Popular meals"
         android:textColor="@color/black"
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
