@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -54,7 +55,7 @@ class MealActivity : AppCompatActivity() {
                 binding.tvContent.text = meal.strInstructions
                 binding.tvOriginInfo.text = "Origin: ${meal!!.strArea}"
 
-                youtubeLink = meal.strYoutube
+                youtubeLink = meal.strYoutube as String
             }
         })
     }
@@ -65,7 +66,7 @@ class MealActivity : AppCompatActivity() {
                 .into(binding.imgMealDetail)
 
         binding.collapsingToolbar.title = mealName
-        binding.collapsingToolbar.setExpandedTitleColor(resources.getColor(R.color.white))
+        binding.collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(applicationContext, R.color.white))
     }
 
     private fun getMealInfoFromIntent() {
