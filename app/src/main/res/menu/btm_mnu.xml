@@ -5,10 +5,10 @@
     android:icon="@drawable/ic_home"/>
 
     <item android:title="Favorites"
-        android:id="@+id/categoriesFragment"
+        android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_favorites"/>
 
     <item android:title="Categories"
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/categoriesFragment"
         android:icon="@drawable/ic_categories"/>
 </menu>

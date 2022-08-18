@@ -14,8 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     val homeViewModel:HomeViewModel by lazy { //Laatste lijn instantieerd homeViewModel aangezien "by lazy"
         val mealDatabase = MealDatabase.getInstance(this)
-        val homeViewModelProvderFactory = HomeViewModelFactory(mealDatabase)
-        ViewModelProvider(this, homeViewModelProvderFactory)[HomeViewModel::class.java]
+        val homeViewModelProviderFactory = HomeViewModelFactory(mealDatabase)
+        ViewModelProvider(this, homeViewModelProviderFactory)[HomeViewModel::class.java]
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
