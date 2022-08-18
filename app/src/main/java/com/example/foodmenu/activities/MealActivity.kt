@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.foodmenu.R
+import com.example.foodmenu.database.MealDatabase
 import com.example.foodmenu.databinding.ActivityMealBinding
 import com.example.foodmenu.fragments.HomeFragment
 import com.example.foodmenu.pojo.Meal
 import com.example.foodmenu.viewModel.MealViewModel
+import com.example.foodmenu.viewModel.MealViewModelFactory
 
 class MealActivity : AppCompatActivity() {
     private lateinit var mealId:String
@@ -27,7 +29,9 @@ class MealActivity : AppCompatActivity() {
         binding= ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mealViewModel = ViewModelProvider(this)[MealViewModel::class.java]
+        val mealDatabase = MealDatabase.getInstance(context = this)
+        val viewModelFactory = MealViewModelFactory(mealDatabase)
+        mealViewModel = ViewModelProvider(this, viewModelFactory)[MealViewModel::class.java]
 
         getMealInfoFromIntent()
         setInformationInViews()
@@ -36,6 +40,16 @@ class MealActivity : AppCompatActivity() {
         observeMealDetailsLiveData()
 
         onVideoImageClick()
+        onFavoriteClick()
+    }
+
+    private fun onFavoriteClick() {
+        binding.btnFavorite.setOnClickListener{
+            mealToStore?.let {
+                mealViewModel.upsertMealToDatabase(it)
+            }
+
+        }
     }
 
     private fun onVideoImageClick() {
@@ -45,11 +59,14 @@ class MealActivity : AppCompatActivity() {
         }
     }
 
+    private var mealToStore:Meal?=null
+
     //Category, Origin, Instructions instellen
     private fun observeMealDetailsLiveData() {
         mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal>{
             override fun onChanged(t: Meal?) {
                 val meal = t
+                mealToStore = meal
 
                 binding.tvCategoryInfo.text = "Category: ${meal!!.strCategory}"
                 binding.tvContent.text = meal.strInstructions
