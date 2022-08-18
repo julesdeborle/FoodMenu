@@ -73,7 +73,7 @@
                     android:visibility="visible" />
 
                 <TextView
-                    android:id="@+id/tv_areaInfo"
+                    android:id="@+id/tv_originInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -81,7 +81,7 @@
                     android:layout_marginStart="15dp"
                     android:drawableLeft="@drawable/ic_origin"
                     android:drawablePadding="5dp"
-                    android:text="Area : belgium"
+                    android:text="Origin : belgium"
                     android:textColor="@color/g_black"
                     android:textSize="14sp"
                     android:visibility="visible" />
@@ -97,7 +97,7 @@
                 android:fontFamily="@font/myfont"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:text="abc"
+                android:text="Instructions:"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +108,8 @@
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="def"
+                android:text="abc"
+                android:textSize="@dimen/_12sdp"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -139,11 +140,11 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_favorite"
         android:layout_width="wrap_content"
         android:contentDescription="add to favorites"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="15dp"
         android:baselineAlignBottom="false"
         android:clickable="true"
         android:src="@drawable/ic_favorites"
@@ -152,14 +153,5 @@
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end"
         app:tint="@color/white" />
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_anchor="@id/appBar"
-        app:layout_anchorGravity="bottom|end"
-        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
