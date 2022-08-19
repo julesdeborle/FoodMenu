@@ -1,5 +1,6 @@
 package com.example.foodmenu.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,20 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foodmenu.R
 import com.example.foodmenu.activities.MainActivity
+import com.example.foodmenu.activities.MealActivity
 import com.example.foodmenu.adapters.FavoriteMealsAdapter
 import com.example.foodmenu.databinding.FragmentFavoritesBinding
-import com.example.foodmenu.viewModel.CategoryMealsViewModel
+import com.example.foodmenu.fragments.HomeFragment.Companion.MEAL_ID
+import com.example.foodmenu.fragments.HomeFragment.Companion.MEAL_NAME
+import com.example.foodmenu.fragments.HomeFragment.Companion.MEAL_THUMB
+import com.example.foodmenu.pojo.Meal
 import com.example.foodmenu.viewModel.HomeViewModel
 
 class FavoritesFragment : Fragment() {
 
+    lateinit var recyclerView:RecyclerView
     private lateinit var binding:FragmentFavoritesBinding
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var favoritesAdapter:FavoriteMealsAdapter
@@ -45,6 +48,7 @@ class FavoritesFragment : Fragment() {
 
         prepareRecyclerView()
         observeFavorites()
+        onFavoriteMealClick()
 
         val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
             override fun onMove(
@@ -63,6 +67,18 @@ class FavoritesFragment : Fragment() {
 
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.recViewFavorites)
 
+    }
+
+    private fun onFavoriteMealClick() {
+        favoritesAdapter.setOnFavoriteMealClickListener(object : FavoriteMealsAdapter.OnFavoriteClickListener{
+            override fun onFavoriteClick(meal: Meal) {
+                val intent = Intent(context, MealActivity::class.java)
+                intent.putExtra(MEAL_ID,meal.idMeal)
+                intent.putExtra(MEAL_NAME,meal.strMeal)
+                intent.putExtra(MEAL_THUMB,meal.strMealThumb)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun prepareRecyclerView() {

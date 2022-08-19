@@ -31,7 +31,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:fontFamily="@font/myfont"
             android:id="@+id/tv_home"
@@ -39,15 +39,6 @@
             android:textColor="@color/accent"
             android:textSize="@dimen/_25ssp"
             android:textStyle="bold" />
-
-    <ImageView
-        android:layout_width="@dimen/_30sdp"
-        android:contentDescription="Search icon"
-        android:layout_height="match_parent"
-        android:id="@+id/img_search"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_search"
-        />
 
 </LinearLayout>
 
@@ -65,18 +56,30 @@
         app:layout_constraintStart_toStartOf="@id/linear_header"
         />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/myfont"
+                android:text="Here is a suggestion:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:id="@+id/tv_rnd_meal"
+                app:layout_constraintTop_toBottomOf="@id/tv_whats_on_the_menu"
+                app:layout_constraintStart_toStartOf="@id/tv_whats_on_the_menu"
+                />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
             android:id="@+id/rnd_meal_card"
             android:layout_marginStart="@dimen/_25sdp"
             android:layout_marginEnd="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardUseCompatPadding="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_whats_on_the_menu">
+            app:layout_constraintTop_toBottomOf="@id/tv_rnd_meal">
 
             <ImageView
                 android:id="@+id/img_rnd_meal"
@@ -89,7 +92,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/myfont"
         android:id="@+id/tv_popular_items"
         android:text="Popular meals"
