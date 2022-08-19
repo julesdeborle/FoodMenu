@@ -16,4 +16,7 @@ interface MealDao {
 
     @Query("SELECT * from mealInformation")
     fun getAllMeals():LiveData<List<Meal>>
+
+    @Query("SELECT exists (select 1 from mealInformation where idMeal = :id)")
+    fun exists(id: String) : Boolean
 }
