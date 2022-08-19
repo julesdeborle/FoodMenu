@@ -14,9 +14,9 @@ interface MealDao {
     @Delete
     suspend fun delete(meal:Meal)
 
-    @Query("SELECT * from mealInformation")
+    @Query("SELECT * from meal_information")
     fun getAllMeals():LiveData<List<Meal>>
 
-    @Query("SELECT exists (select 1 from mealInformation where idMeal = :id)")
+    @Query("SELECT exists (select 1 from meal_information where idMeal = :id)")
     fun exists(id: String) : Boolean
 }

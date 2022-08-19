@@ -3,7 +3,7 @@ package com.example.foodmenu.pojo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "mealInformation")
+@Entity(tableName = "meal_information")
 data class Meal(
     val dateModified: Any?,
     @PrimaryKey
