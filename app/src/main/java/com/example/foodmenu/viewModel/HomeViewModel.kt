@@ -70,7 +70,6 @@ class HomeViewModel(private val mealDatabase: MealDatabase):ViewModel() {
     }
 
 
-
     fun observeRandomMealLivedata():LiveData<Meal>{
         return randomMealLiveData
     }

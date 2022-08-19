@@ -17,7 +17,6 @@ import retrofit2.Response
 class MealViewModel(val mealDatabase: MealDatabase):ViewModel() {
     private var mealInfoLiveData = MutableLiveData<Meal>()
 
-
     fun getMealDetail(id: String){
         RetrofitInstance.api.getMealInfo(id).enqueue(object : Callback<MealList>{
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
@@ -43,8 +42,7 @@ class MealViewModel(val mealDatabase: MealDatabase):ViewModel() {
             mealDatabase.mealDao().upsertMeal(meal)
         }
     }
-
-
+    
 
 
 }
