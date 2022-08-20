@@ -14,15 +14,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MealViewModel(val mealDatabase: MealDatabase):ViewModel() {
+class MealViewModel(val mealDatabase: MealDatabase) : ViewModel() {
     private var mealInfoLiveData = MutableLiveData<Meal>()
 
-    fun getMealDetail(id: String){
-        RetrofitInstance.api.getMealInfo(id).enqueue(object : Callback<MealList>{
+    fun getMealDetail(id: String) {
+        RetrofitInstance.api.getMealInfo(id).enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
-                if(response.body() != null){
+                if (response.body() != null) {
                     mealInfoLiveData.value = response.body()!!.meals[0]
-                }else{
+                } else {
                     return
                 }
             }
@@ -33,16 +33,15 @@ class MealViewModel(val mealDatabase: MealDatabase):ViewModel() {
         })
     }
 
-    fun observeMealInfoLiveData():LiveData<Meal>{
+    fun observeMealInfoLiveData(): LiveData<Meal> {
         return mealInfoLiveData
     }
 
-    fun upsertMealToDatabase(meal:Meal){
+    fun upsertMealToDatabase(meal: Meal) {
         viewModelScope.launch {
             mealDatabase.mealDao().upsertMeal(meal)
         }
     }
-    
 
 
 }

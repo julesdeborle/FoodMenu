@@ -14,8 +14,8 @@ import com.example.foodmenu.viewModel.HomeViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {
     lateinit var binding: ActivityCategoryMealsBinding
-    lateinit var categoryMealsViewModel:CategoryMealsViewModel
-    lateinit var categoryMealsAdapter:CategoryMealsAdapter
+    lateinit var categoryMealsViewModel: CategoryMealsViewModel
+    lateinit var categoryMealsAdapter: CategoryMealsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,7 @@ class CategoryMealsActivity : AppCompatActivity() {
 
         categoryMealsViewModel.getMealsByCategory(intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!)
 
-        categoryMealsViewModel.observeMealsLiveData().observe(this, Observer{
-            mealsList ->
+        categoryMealsViewModel.observeMealsLiveData().observe(this, Observer { mealsList ->
             binding.tvCategoryCount.text = "Meals in category: ${mealsList.size.toString()}"
             categoryMealsAdapter.setMealsList(mealsList)
         })

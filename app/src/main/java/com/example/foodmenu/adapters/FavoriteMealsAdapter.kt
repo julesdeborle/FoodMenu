@@ -9,12 +9,15 @@ import com.bumptech.glide.Glide
 import com.example.foodmenu.databinding.MealItemBinding
 import com.example.foodmenu.pojo.Meal
 
-class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
+class FavoriteMealsAdapter :
+    RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
     private var favoriteMeals: List<Meal> = ArrayList()
     private lateinit var onFavoriteClickListener: OnFavoriteClickListener
-    inner class FavoriteMealsAdapterViewHolder(val binding: MealItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val diffUtil = object : DiffUtil.ItemCallback<Meal>(){
+    inner class FavoriteMealsAdapterViewHolder(val binding: MealItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
             return oldItem.idMeal == newItem.idMeal
         }
@@ -31,7 +34,7 @@ class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMe
         viewType: Int
     ): FavoriteMealsAdapterViewHolder {
         return FavoriteMealsAdapterViewHolder(
-            MealItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+            MealItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -45,12 +48,12 @@ class FavoriteMealsAdapter: RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMe
         this.onFavoriteClickListener = onFavoriteClickListener
     }
 
-    fun getMealByPosition(position: Int):Meal{
-        return favoriteMeals[position]
-    }
+//    fun getMealByPosition(position: Int):Meal{
+//        return favoriteMeals[position]
+//    }
 
     override fun getItemCount(): Int {
-      return differ.currentList.size
+        return differ.currentList.size
     }
 
     interface OnFavoriteClickListener {

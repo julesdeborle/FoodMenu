@@ -10,15 +10,15 @@ import com.example.foodmenu.pojo.Meal
 @Database(entities = [Meal::class], version = 2)
 @TypeConverters(MealTypeConverter::class)
 abstract class MealDatabase : RoomDatabase() {
-    abstract fun mealDao():MealDao
+    abstract fun mealDao(): MealDao
 
-    companion object{
+    companion object {
         @Volatile //Veranderingen zichtbaar door elke thread
-        var INSTANCE:MealDatabase?=null
+        var INSTANCE: MealDatabase? = null
 
         @Synchronized //slechts 1 thread kan een instance hebben van deze Room db
-        fun getInstance(context: Context):MealDatabase{
-            if(INSTANCE == null){
+        fun getInstance(context: Context): MealDatabase {
+            if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context, MealDatabase::class.java, "meal.db")
                     .fallbackToDestructiveMigration().build()
             }

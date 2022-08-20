@@ -24,10 +24,10 @@ import com.example.foodmenu.viewModel.HomeViewModel
 
 class FavoritesFragment : Fragment() {
 
-    lateinit var recyclerView:RecyclerView
-    private lateinit var binding:FragmentFavoritesBinding
+    lateinit var recyclerView: RecyclerView
+    private lateinit var binding: FragmentFavoritesBinding
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var favoritesAdapter:FavoriteMealsAdapter
+    private lateinit var favoritesAdapter: FavoriteMealsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,18 +43,22 @@ class FavoritesFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view:View, savedInstanceState: Bundle?){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         prepareRecyclerView()
         observeFavorites()
         onFavoriteMealClick()
 
-        val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
+        val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder) = true
+                target: RecyclerView.ViewHolder
+            ) = true
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val pos = viewHolder.adapterPosition
@@ -70,12 +74,13 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun onFavoriteMealClick() {
-        favoritesAdapter.setOnFavoriteMealClickListener(object : FavoriteMealsAdapter.OnFavoriteClickListener{
+        favoritesAdapter.setOnFavoriteMealClickListener(object :
+            FavoriteMealsAdapter.OnFavoriteClickListener {
             override fun onFavoriteClick(meal: Meal) {
                 val intent = Intent(context, MealActivity::class.java)
-                intent.putExtra(MEAL_ID,meal.idMeal)
-                intent.putExtra(MEAL_NAME,meal.strMeal)
-                intent.putExtra(MEAL_THUMB,meal.strMealThumb)
+                intent.putExtra(MEAL_ID, meal.idMeal)
+                intent.putExtra(MEAL_NAME, meal.strMeal)
+                intent.putExtra(MEAL_THUMB, meal.strMealThumb)
                 startActivity(intent)
             }
         })
@@ -84,13 +89,13 @@ class FavoritesFragment : Fragment() {
     private fun prepareRecyclerView() {
         favoritesAdapter = FavoriteMealsAdapter()
         binding.recViewFavorites.apply {
-            layoutManager = GridLayoutManager(context, 2 , GridLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             adapter = favoritesAdapter
         }
     }
 
     private fun observeFavorites() {
-        homeViewModel.observeFavoritesMealsLiveData().observe(requireActivity(), Observer{ meals ->
+        homeViewModel.observeFavoritesMealsLiveData().observe(requireActivity(), Observer { meals ->
             meals.forEach { Log.d("test", it.idMeal) }
             favoritesAdapter.differ.submitList(meals)
         })

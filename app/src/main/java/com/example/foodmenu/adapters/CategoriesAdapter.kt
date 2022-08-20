@@ -7,17 +7,18 @@ import com.bumptech.glide.Glide
 import com.example.foodmenu.databinding.CategoryItemBinding
 import com.example.foodmenu.pojo.Category
 
-class CategoriesAdapter():RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
+class CategoriesAdapter() : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
     private var categoriesList = ArrayList<Category>()
-    var onItemClick : ((Category) -> Unit)? = null
+    var onItemClick: ((Category) -> Unit)? = null
 
-    fun setCategoryList(categoriesList:List<Category>){
+    fun setCategoryList(categoriesList: List<Category>) {
         this.categoriesList = categoriesList as ArrayList<Category>
         notifyDataSetChanged()
     }
 
-    inner class CategoryViewHolder(val binding:CategoryItemBinding):RecyclerView.ViewHolder(binding.root)
+    inner class CategoryViewHolder(val binding: CategoryItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -28,10 +29,11 @@ class CategoriesAdapter():RecyclerView.Adapter<CategoriesAdapter.CategoryViewHol
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        Glide.with(holder.itemView).load(categoriesList[position].strCategoryThumb).into(holder.binding.imgCategory)
+        Glide.with(holder.itemView).load(categoriesList[position].strCategoryThumb)
+            .into(holder.binding.imgCategory)
         holder.binding.tvCategoryName.text = categoriesList[position].strCategory
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             onItemClick!!.invoke(categoriesList[position])
         }
     }

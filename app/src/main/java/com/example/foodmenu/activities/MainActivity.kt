@@ -12,11 +12,12 @@ import com.example.foodmenu.viewModel.HomeViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    val homeViewModel:HomeViewModel by lazy { //Laatste lijn instantieerd homeViewModel aangezien "by lazy"
+    val homeViewModel: HomeViewModel by lazy { //Laatste lijn instantieerd homeViewModel aangezien "by lazy"
         val mealDatabase = MealDatabase.getInstance(this)
         val homeViewModelProviderFactory = HomeViewModelFactory(mealDatabase)
         ViewModelProvider(this, homeViewModelProviderFactory)[HomeViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -10,7 +10,7 @@ import com.example.foodmenu.pojo.MealsByCategory
 class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryMealsViewModel>() {
     private var mealsList = ArrayList<MealsByCategory>()
 
-    fun setMealsList(mealsList: List<MealsByCategory>){
+    fun setMealsList(mealsList: List<MealsByCategory>) {
         this.mealsList = mealsList as ArrayList<MealsByCategory>
         notifyDataSetChanged()
 
@@ -23,7 +23,8 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
     }
 
     override fun onBindViewHolder(holder: CategoryMealsViewModel, position: Int) {
-        Glide.with(holder.itemView).load(mealsList[position].strMealThumb).into(holder.binding.imgMealFromCategory)
+        Glide.with(holder.itemView).load(mealsList[position].strMealThumb)
+            .into(holder.binding.imgMealFromCategory)
         holder.binding.tvMealName.text = mealsList[position].strMeal
     }
 
@@ -31,5 +32,6 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
         return mealsList.size
     }
 
-    inner class CategoryMealsViewModel(val binding: MealItemBinding):RecyclerView.ViewHolder(binding.root)
+    inner class CategoryMealsViewModel(val binding: MealItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

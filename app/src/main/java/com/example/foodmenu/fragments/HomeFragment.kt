@@ -135,8 +135,8 @@ class HomeFragment : Fragment() {
         homeViewModel.observeRandomMealLivedata().observe(viewLifecycleOwner)
         { meal ->
             Glide.with(this@HomeFragment)
-                .load(meal!!.strMealThumb)
-                .load(meal!!.strMealThumb)
+                .load(meal.strMealThumb)
+                .load(meal.strMealThumb)
                 .into(binding.imgRndMeal)
 
             this.randomMeal = meal

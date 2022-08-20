@@ -17,9 +17,9 @@ import com.example.foodmenu.viewModel.HomeViewModel
 
 class CategoriesFragment : Fragment() {
 
-    private  lateinit var binding: FragmentCategoriesBinding
+    private lateinit var binding: FragmentCategoriesBinding
     private lateinit var categoriesAdapter: CategoriesAdapter
-    private lateinit var homeViewModel : HomeViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +49,10 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun observeCategoriesLiveData() {
-        homeViewModel.observeCategoriesLiveData().observe(viewLifecycleOwner, Observer{
-                categories -> categoriesAdapter.setCategoryList(categories)
-        })
+        homeViewModel.observeCategoriesLiveData()
+            .observe(viewLifecycleOwner, Observer { categories ->
+                categoriesAdapter.setCategoryList(categories)
+            })
     }
 
     private fun prepareCategoriesRecyclerView() {
@@ -71,8 +72,8 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun observeCategories() {
-        homeViewModel.observeCategoriesLiveData().observe(viewLifecycleOwner, Observer{
-            c -> categoriesAdapter.setCategoryList((c))
+        homeViewModel.observeCategoriesLiveData().observe(viewLifecycleOwner, Observer { c ->
+            categoriesAdapter.setCategoryList((c))
         })
     }
 

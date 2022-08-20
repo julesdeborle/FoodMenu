@@ -17,16 +17,16 @@ import com.example.foodmenu.viewModel.MealViewModel
 import com.example.foodmenu.viewModel.MealViewModelFactory
 
 class MealActivity : AppCompatActivity() {
-    private lateinit var mealId:String
-    private lateinit var mealName:String
-    private lateinit var mealThumb:String
-    private lateinit var binding:ActivityMealBinding
+    private lateinit var mealId: String
+    private lateinit var mealName: String
+    private lateinit var mealThumb: String
+    private lateinit var binding: ActivityMealBinding
     private lateinit var mealViewModel: MealViewModel
-    private lateinit var youtubeLink:String
+    private lateinit var youtubeLink: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMealBinding.inflate(layoutInflater)
+        binding = ActivityMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val mealDatabase = MealDatabase.getInstance(context = this)
@@ -44,7 +44,7 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun onFavoriteClick() {
-        binding.btnFavorite.setOnClickListener{
+        binding.btnFavorite.setOnClickListener {
             mealToStore?.let {
                 mealViewModel.upsertMealToDatabase(it)
             }
@@ -53,24 +53,24 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun onVideoImageClick() {
-        binding.imgYoutube.setOnClickListener{
+        binding.imgYoutube.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
             startActivity(intent)
         }
     }
 
-    private var mealToStore:Meal?=null
+    private var mealToStore: Meal? = null
 
     //Category, Origin, Instructions instellen
     private fun observeMealDetailsLiveData() {
-        mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal>{
-            override fun onChanged(t: Meal?) {
+        mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal> {
+            override fun onChanged(t: Meal) {
                 val meal = t
                 mealToStore = meal
 
-                binding.tvCategoryInfo.text = "Category: ${meal!!.strCategory}"
+                binding.tvCategoryInfo.text = "Category: ${meal.strCategory}"
                 binding.tvContent.text = meal.strInstructions
-                binding.tvOriginInfo.text = "Origin: ${meal!!.strArea}"
+                binding.tvOriginInfo.text = "Origin: ${meal.strArea}"
 
                 youtubeLink = meal.strYoutube as String
             }
@@ -78,12 +78,17 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun setInformationInViews() {
-            Glide.with(applicationContext)
-                .load(mealThumb)
-                .into(binding.imgMealDetail)
+        Glide.with(applicationContext)
+            .load(mealThumb)
+            .into(binding.imgMealDetail)
 
         binding.collapsingToolbar.title = mealName
-        binding.collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(applicationContext, R.color.white))
+        binding.collapsingToolbar.setExpandedTitleColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.white
+            )
+        )
     }
 
     private fun getMealInfoFromIntent() {

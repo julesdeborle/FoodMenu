@@ -6,8 +6,8 @@ import com.example.foodmenu.database.MealDatabase
 
 class MealViewModelFactory(
     private val mealDatabase: MealDatabase
-    ): ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T{
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MealViewModel(mealDatabase) as T
     }
 }
