@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodmenu.R
 import com.example.foodmenu.activities.MainActivity
 import com.example.foodmenu.activities.MealActivity
 import com.example.foodmenu.adapters.FavoriteMealsAdapter
@@ -39,7 +41,7 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFavoritesBinding.inflate(inflater)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorites, container, false)
         return binding.root
     }
 

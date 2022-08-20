@@ -79,7 +79,6 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
         viewModelScope.launch { mealDatabase.mealDao().delete(meal) }
     }
 
-
     fun observeRandomMealLivedata(): LiveData<Meal> {
         return randomMealLiveData
     }
