@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+
 android {
     compileSdk 32
 
@@ -36,7 +39,6 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-//        viewBinding = true
         dataBinding = true
     }
 }

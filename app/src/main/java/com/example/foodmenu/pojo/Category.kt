@@ -1,8 +1,8 @@
 package com.example.foodmenu.pojo
 
 data class Category(
-    val idCategory: String,
-    val strCategory: String,
-    val strCategoryDescription: String,
-    val strCategoryThumb: String
+    var idCategory: String,
+    var strCategory: String,
+    var strCategoryDescription: String,
+    var strCategoryThumb: String
 )

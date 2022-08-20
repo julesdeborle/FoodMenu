@@ -25,6 +25,8 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealViewModel: MealViewModel
     private lateinit var youtubeLink: String
 
+    private val meal:Meal? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_meal)

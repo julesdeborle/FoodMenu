@@ -1,5 +1,5 @@
 package com.example.foodmenu.pojo
 
 data class CategoryList(
-    val categories: List<Category>
+    var categories: List<Category>
 )
