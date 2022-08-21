@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodmenu.R
 import com.example.foodmenu.adapters.CategoryMealsAdapter
 import com.example.foodmenu.databinding.ActivityCategoryMealsBinding
-import com.example.foodmenu.fragments.HomeFragment
 import com.example.foodmenu.viewModel.CategoryMealsViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {
@@ -37,7 +36,6 @@ class CategoryMealsActivity : AppCompatActivity() {
             categoryMealsAdapter.setMealsList(mealsList)
         })
 
-//        onCategoryMealClick()
     }
 
     private fun prepareRecyclerView() {
@@ -47,16 +45,6 @@ class CategoryMealsActivity : AppCompatActivity() {
             adapter = categoryMealsAdapter
         }
     }
-
-//    private fun onCategoryMealClick() {
-//        categoryMealsAdapter.onItemClick = { meal ->
-//            val intent = Intent(this, MealActivity::class.java)
-//            intent.putExtra("com.example.foodmenu.fragments.mealId", meal.idMeal)
-//            intent.putExtra("com.example.foodmenu.fragments.mealName", meal.strMeal)
-//            intent.putExtra("com.example.foodmenu.fragments.mealThumb", meal.strMealThumb)
-//            startActivity(intent)
-//        }
-//    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -9,7 +9,7 @@ import com.example.foodmenu.pojo.MealsByCategory
 
 class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryMealsViewModel>() {
     private var mealsList: List<MealsByCategory> = ArrayList()
-    lateinit var onItemClick: ((MealsByCategory) -> Unit)
+
 
     fun setMealsList(mealsList: List<MealsByCategory>) {
         this.mealsList = mealsList as ArrayList<MealsByCategory>
@@ -30,9 +30,6 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
             tvMealName.text = mealsList[position].strMeal
         }
 
-        holder.itemView.setOnClickListener {
-            onItemClick.invoke(mealsList[position])
-        }
 
     }
 
