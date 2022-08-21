@@ -9,8 +9,8 @@ import com.example.foodmenu.pojo.Category
 import com.example.foodmenu.pojo.MealsByCategory
 
 class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryMealsViewModel>() {
-    private var mealsList:List<MealsByCategory> = ArrayList()
-    private lateinit var onItemClick: OnItemCategoryClicked
+    private var mealsList: List<MealsByCategory> = ArrayList()
+    lateinit var onItemClick: ((MealsByCategory) -> Unit)
 
     fun setMealsList(mealsList: List<MealsByCategory>) {
         this.mealsList = mealsList as ArrayList<MealsByCategory>
@@ -31,6 +31,10 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
             tvMealName.text = mealsList[position].strMeal
         }
 
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(mealsList[position])
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -40,7 +44,4 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
     inner class CategoryMealsViewModel(val binding: MealItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    interface OnItemCategoryClicked{
-        fun onClickListener(category: MealsByCategory)
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.foodmenu.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -32,6 +33,8 @@ class CategoryMealsActivity : AppCompatActivity() {
             binding.tvCategoryCount.text = "Meals in category: ${mealsList.size.toString()}"
             categoryMealsAdapter.setMealsList(mealsList)
         })
+
+        onCategoryMealClick()
     }
 
     private fun prepareRecyclerView() {
@@ -39,6 +42,16 @@ class CategoryMealsActivity : AppCompatActivity() {
         binding.recViewMealCategories.apply {
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             adapter = categoryMealsAdapter
+        }
+    }
+
+    private fun onCategoryMealClick() {
+        categoryMealsAdapter.onItemClick = { meal ->
+            val intent = Intent(this, MealActivity::class.java)
+            intent.putExtra(HomeFragment.MEAL_ID, meal.idMeal)
+            intent.putExtra(HomeFragment.MEAL_NAME, meal.strMeal)
+            intent.putExtra(HomeFragment.MEAL_THUMB, meal.strMealThumb)
+            startActivity(intent)
         }
     }
 }
