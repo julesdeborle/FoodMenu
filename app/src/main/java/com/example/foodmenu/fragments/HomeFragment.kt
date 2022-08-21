@@ -9,13 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodmenu.R
 import com.example.foodmenu.activities.CategoryMealsActivity
 import com.example.foodmenu.activities.MainActivity
-import com.example.foodmenu.activities.MealActivity
 import com.example.foodmenu.adapters.CategoriesAdapter
 import com.example.foodmenu.adapters.MostPopularAdapter
 import com.example.foodmenu.databinding.FragmentHomeBinding
@@ -32,15 +32,6 @@ class HomeFragment : Fragment() {
     private lateinit var popularItemsAdapter: MostPopularAdapter
     private lateinit var categoriesAdapter: CategoriesAdapter
 
-
-    companion object {
-        const val MEAL_ID = "com.example.foodmenu.fragments.mealId"
-        const val MEAL_NAME = "com.example.foodmenu.fragments.mealName"
-        const val MEAL_THUMB = "com.example.foodmenu.fragments.mealThumb"
-
-        const val CATEGORY_NAME = "com.example.foodmenu.fragments.categoryName"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel = (activity as MainActivity).homeViewModel
@@ -54,6 +45,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,9 +70,8 @@ class HomeFragment : Fragment() {
 
     private fun onCategoryClick() {
         categoriesAdapter.onItemClick = { category ->
-            val intent = Intent(activity, CategoryMealsActivity::class.java)
-            intent.putExtra(CATEGORY_NAME, category.strCategory)
-            startActivity(intent)
+            val action = HomeFragmentDirections.actionHomeFragmentToCategoryMealsActivity(category.strCategory)
+            findNavController().navigate(action)
         }
     }
 
@@ -101,11 +92,9 @@ class HomeFragment : Fragment() {
 
     private fun onPopularItemClick() {
         popularItemsAdapter.onItemClick = { meal ->
-            val intent = Intent(activity, MealActivity::class.java)
-            intent.putExtra(MEAL_ID, meal.idMeal)
-            intent.putExtra(MEAL_NAME, meal.strMeal)
-            intent.putExtra(MEAL_THUMB, meal.strMealThumb)
-            startActivity(intent)
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToMealActivity(meal.idMeal)
+            findNavController().navigate(action)
         }
     }
 
@@ -126,11 +115,9 @@ class HomeFragment : Fragment() {
 
     private fun onRandomMealclick() {
         binding?.rndMealCard?.setOnClickListener {
-            val intent = Intent(activity, MealActivity::class.java)
-            intent.putExtra(MEAL_ID, randomMeal.idMeal)
-            intent.putExtra(MEAL_NAME, randomMeal.strMeal)
-            intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
-            startActivity(intent)
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToMealActivity(randomMeal.idMeal)
+            findNavController().navigate(action)
         }
     }
 

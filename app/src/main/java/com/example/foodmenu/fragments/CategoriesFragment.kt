@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodmenu.R
-import com.example.foodmenu.activities.CategoryMealsActivity
 import com.example.foodmenu.activities.MainActivity
 import com.example.foodmenu.adapters.CategoriesAdapter
 import com.example.foodmenu.databinding.FragmentCategoriesBinding
@@ -67,9 +67,8 @@ class CategoriesFragment : Fragment() {
 
     private fun onCategoryClick() {
         categoriesAdapter.onItemClick = { category ->
-            val intent = Intent(activity, CategoryMealsActivity::class.java)
-            intent.putExtra(HomeFragment.CATEGORY_NAME, category.strCategory)
-            startActivity(intent)
+            val action = CategoriesFragmentDirections.actionCategoriesFragmentToCategoryMealsActivity(category.strCategory)
+            findNavController().navigate(action)
         }
     }
 

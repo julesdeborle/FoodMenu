@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodmenu.R
 import com.example.foodmenu.adapters.CategoryMealsAdapter
@@ -15,6 +16,9 @@ import com.example.foodmenu.viewModel.CategoryMealsViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {
     var binding: ActivityCategoryMealsBinding? = null
+
+    private val args by navArgs<CategoryMealsActivityArgs>()
+
     lateinit var categoryMealsViewModel: CategoryMealsViewModel
     lateinit var categoryMealsAdapter: CategoryMealsAdapter
 
@@ -26,14 +30,14 @@ class CategoryMealsActivity : AppCompatActivity() {
 
         categoryMealsViewModel = ViewModelProvider(this)[CategoryMealsViewModel::class.java]
 
-        categoryMealsViewModel.getMealsByCategory(intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!)
+        categoryMealsViewModel.getMealsByCategory(args.categoryName!!)
 
         categoryMealsViewModel.observeMealsLiveData().observe(this, Observer { mealsList ->
             binding?.tvCategoryCount?.text = "Meals in category: ${mealsList.size.toString()}"
             categoryMealsAdapter.setMealsList(mealsList)
         })
 
-        onCategoryMealClick()
+//        onCategoryMealClick()
     }
 
     private fun prepareRecyclerView() {
@@ -44,15 +48,15 @@ class CategoryMealsActivity : AppCompatActivity() {
         }
     }
 
-    private fun onCategoryMealClick() {
-        categoryMealsAdapter.onItemClick = { meal ->
-            val intent = Intent(this, MealActivity::class.java)
-            intent.putExtra(HomeFragment.MEAL_ID, meal.idMeal)
-            intent.putExtra(HomeFragment.MEAL_NAME, meal.strMeal)
-            intent.putExtra(HomeFragment.MEAL_THUMB, meal.strMealThumb)
-            startActivity(intent)
-        }
-    }
+//    private fun onCategoryMealClick() {
+//        categoryMealsAdapter.onItemClick = { meal ->
+//            val intent = Intent(this, MealActivity::class.java)
+//            intent.putExtra("com.example.foodmenu.fragments.mealId", meal.idMeal)
+//            intent.putExtra("com.example.foodmenu.fragments.mealName", meal.strMeal)
+//            intent.putExtra("com.example.foodmenu.fragments.mealThumb", meal.strMealThumb)
+//            startActivity(intent)
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

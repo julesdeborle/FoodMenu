@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +41,8 @@ class FavoritesFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorites, container, false)
         return binding?.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,11 +77,9 @@ class FavoritesFragment : Fragment() {
 
     private fun onFavoriteMealClick() {
         favoritesAdapter.onItemClick = { meal ->
-            val intent = Intent(context, MealActivity::class.java)
-            intent.putExtra(HomeFragment.MEAL_ID, meal.idMeal)
-            intent.putExtra(HomeFragment.MEAL_NAME, meal.strMeal)
-            intent.putExtra(HomeFragment.MEAL_THUMB, meal.strMealThumb)
-            startActivity(intent)
+            val action =
+                FavoritesFragmentDirections.actionFavoritesFragmentToMealActivity(meal.idMeal)
+            findNavController().navigate(action)
         }
     }
 

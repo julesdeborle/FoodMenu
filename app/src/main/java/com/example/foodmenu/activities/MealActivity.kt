@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.example.foodmenu.R
 import com.example.foodmenu.database.MealDatabase
@@ -18,6 +19,9 @@ import com.example.foodmenu.viewModel.MealViewModel
 import com.example.foodmenu.viewModel.MealViewModelFactory
 
 class MealActivity : AppCompatActivity() {
+
+    private val args by navArgs<MealActivityArgs>()
+
     private lateinit var mealId: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
@@ -25,7 +29,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealViewModel: MealViewModel
     private lateinit var youtubeLink: String
 
-    private val meal:Meal? = null
+    private var meal: Meal? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +38,8 @@ class MealActivity : AppCompatActivity() {
         val mealDatabase = MealDatabase.getInstance(context = this)
         val viewModelFactory = MealViewModelFactory(mealDatabase)
         mealViewModel = ViewModelProvider(this, viewModelFactory)[MealViewModel::class.java]
+        mealViewModel.getMealDetail(args.mealId)
 
-        getMealInfoFromIntent()
-        setInformationInViews()
-
-        mealViewModel.getMealDetail(mealId)
         observeMealDetailsLiveData()
 
         onVideoImageClick()
@@ -47,7 +48,7 @@ class MealActivity : AppCompatActivity() {
 
     private fun onFavoriteClick() {
         binding?.btnFavorite?.setOnClickListener {
-            mealToStore?.let {
+            meal?.let {
                 mealViewModel.upsertMealToDatabase(it)
             }
 
@@ -61,46 +62,30 @@ class MealActivity : AppCompatActivity() {
         }
     }
 
-    private var mealToStore: Meal? = null
-
-    //Category, Origin, Instructions instellen
     private fun observeMealDetailsLiveData() {
         mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal> {
             override fun onChanged(t: Meal) {
-                val meal = t
-                mealToStore = meal
 
-                binding?.tvCategoryInfo?.text = "Category: ${meal.strCategory}"
-                binding?.tvContent?.text = meal.strInstructions
-                binding?.tvOriginInfo?.text = "Origin: ${meal.strArea}"
+                meal = t
+                binding?.tvCategoryInfo?.text = "Category: ${meal?.strCategory}"
+                binding?.tvContent?.text = meal?.strInstructions
+                binding?.tvOriginInfo?.text = "Origin: ${meal?.strArea}"
+                binding?.let {
+                    Glide.with(applicationContext)
+                        .load(meal?.strMealThumb)
+                        .into(it.imgMealDetail)
+                }
+                binding?.collapsingToolbar?.title = meal?.strMeal
+                binding?.collapsingToolbar?.setExpandedTitleColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.white
+                    )
+                )
 
-                youtubeLink = meal.strYoutube as String
+                youtubeLink = meal?.strYoutube as String
             }
         })
-    }
-
-    private fun setInformationInViews() {
-        binding?.let {
-            Glide.with(applicationContext)
-                .load(mealThumb)
-                .into(it.imgMealDetail)
-        }
-
-        binding?.collapsingToolbar?.title = mealName
-        binding?.collapsingToolbar?.setExpandedTitleColor(
-            ContextCompat.getColor(
-                applicationContext,
-                R.color.white
-            )
-        )
-    }
-
-    private fun getMealInfoFromIntent() {
-        val intent = intent
-        mealId = intent.getStringExtra(HomeFragment.MEAL_ID)!!
-        mealName = intent.getStringExtra(HomeFragment.MEAL_NAME)!!
-        mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB)!!
-
     }
 
     override fun onDestroy() {
