@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.example.foodmenu.R
 import com.example.foodmenu.database.MealDatabase
 import com.example.foodmenu.databinding.ActivityMealBinding
-import com.example.foodmenu.fragments.HomeFragment
 import com.example.foodmenu.pojo.Meal
 import com.example.foodmenu.viewModel.MealViewModel
 import com.example.foodmenu.viewModel.MealViewModelFactory
@@ -22,10 +21,7 @@ class MealActivity : AppCompatActivity() {
 
     private val args by navArgs<MealActivityArgs>()
 
-    private lateinit var mealId: String
-    private lateinit var mealName: String
-    private lateinit var mealThumb: String
-    private var binding: ActivityMealBinding? = null
+    private lateinit var binding: ActivityMealBinding
     private lateinit var mealViewModel: MealViewModel
     private lateinit var youtubeLink: String
 
@@ -39,6 +35,7 @@ class MealActivity : AppCompatActivity() {
         val viewModelFactory = MealViewModelFactory(mealDatabase)
         mealViewModel = ViewModelProvider(this, viewModelFactory)[MealViewModel::class.java]
         mealViewModel.getMealDetail(args.mealId)
+        binding.viewModel = mealViewModel
 
         observeMealDetailsLiveData()
 
@@ -88,8 +85,4 @@ class MealActivity : AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding = null
-    }
 }

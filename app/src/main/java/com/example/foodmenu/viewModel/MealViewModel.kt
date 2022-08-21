@@ -37,11 +37,14 @@ class MealViewModel(val mealDatabase: MealDatabase) : ViewModel() {
         return mealInfoLiveData
     }
 
+    fun getMealInfoLiveData(): LiveData<Meal> {
+        return mealInfoLiveData
+    }
+
     fun upsertMealToDatabase(meal: Meal) {
         viewModelScope.launch {
             mealDatabase.mealDao().upsertMeal(meal)
         }
     }
-
 
 }
