@@ -15,7 +15,7 @@ import com.example.foodmenu.viewModel.CategoryMealsViewModel
 import com.example.foodmenu.viewModel.HomeViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {
-    lateinit var binding: ActivityCategoryMealsBinding
+    var binding: ActivityCategoryMealsBinding? = null
     lateinit var categoryMealsViewModel: CategoryMealsViewModel
     lateinit var categoryMealsAdapter: CategoryMealsAdapter
 
@@ -30,7 +30,7 @@ class CategoryMealsActivity : AppCompatActivity() {
         categoryMealsViewModel.getMealsByCategory(intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!)
 
         categoryMealsViewModel.observeMealsLiveData().observe(this, Observer { mealsList ->
-            binding.tvCategoryCount.text = "Meals in category: ${mealsList.size.toString()}"
+            binding?.tvCategoryCount?.text = "Meals in category: ${mealsList.size.toString()}"
             categoryMealsAdapter.setMealsList(mealsList)
         })
 
@@ -39,7 +39,7 @@ class CategoryMealsActivity : AppCompatActivity() {
 
     private fun prepareRecyclerView() {
         categoryMealsAdapter = CategoryMealsAdapter()
-        binding.recViewMealCategories.apply {
+        binding?.recViewMealCategories?.apply {
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             adapter = categoryMealsAdapter
         }
@@ -54,4 +54,10 @@ class CategoryMealsActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
 }

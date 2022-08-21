@@ -21,7 +21,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealId: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
-    private lateinit var binding: ActivityMealBinding
+    private var binding: ActivityMealBinding? = null
     private lateinit var mealViewModel: MealViewModel
     private lateinit var youtubeLink: String
 
@@ -46,7 +46,7 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun onFavoriteClick() {
-        binding.btnFavorite.setOnClickListener {
+        binding?.btnFavorite?.setOnClickListener {
             mealToStore?.let {
                 mealViewModel.upsertMealToDatabase(it)
             }
@@ -55,7 +55,7 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun onVideoImageClick() {
-        binding.imgYoutube.setOnClickListener {
+        binding?.imgYoutube?.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
             startActivity(intent)
         }
@@ -70,9 +70,9 @@ class MealActivity : AppCompatActivity() {
                 val meal = t
                 mealToStore = meal
 
-                binding.tvCategoryInfo.text = "Category: ${meal.strCategory}"
-                binding.tvContent.text = meal.strInstructions
-                binding.tvOriginInfo.text = "Origin: ${meal.strArea}"
+                binding?.tvCategoryInfo?.text = "Category: ${meal.strCategory}"
+                binding?.tvContent?.text = meal.strInstructions
+                binding?.tvOriginInfo?.text = "Origin: ${meal.strArea}"
 
                 youtubeLink = meal.strYoutube as String
             }
@@ -80,12 +80,14 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun setInformationInViews() {
-        Glide.with(applicationContext)
-            .load(mealThumb)
-            .into(binding.imgMealDetail)
+        binding?.let {
+            Glide.with(applicationContext)
+                .load(mealThumb)
+                .into(it.imgMealDetail)
+        }
 
-        binding.collapsingToolbar.title = mealName
-        binding.collapsingToolbar.setExpandedTitleColor(
+        binding?.collapsingToolbar?.title = mealName
+        binding?.collapsingToolbar?.setExpandedTitleColor(
             ContextCompat.getColor(
                 applicationContext,
                 R.color.white
@@ -99,5 +101,10 @@ class MealActivity : AppCompatActivity() {
         mealName = intent.getStringExtra(HomeFragment.MEAL_NAME)!!
         mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB)!!
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

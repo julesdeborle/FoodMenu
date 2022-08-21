@@ -20,7 +20,7 @@ import com.example.foodmenu.viewModel.HomeViewModel
 
 class CategoriesFragment : Fragment() {
 
-    private lateinit var binding: FragmentCategoriesBinding
+    private var binding: FragmentCategoriesBinding? = null
     private lateinit var categoriesAdapter: CategoriesAdapter
     private lateinit var homeViewModel: HomeViewModel
 
@@ -36,7 +36,7 @@ class CategoriesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class CategoriesFragment : Fragment() {
 
     private fun prepareCategoriesRecyclerView() {
         categoriesAdapter = CategoriesAdapter()
-        binding.recViewCategories.apply {
+        binding?.recViewCategories?.apply {
             layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
             adapter = categoriesAdapter
         }
@@ -82,11 +82,14 @@ class CategoriesFragment : Fragment() {
 
     private fun prepareRecyclerView() {
         categoriesAdapter = CategoriesAdapter()
-        binding.recViewCategories.apply {
+        binding?.recViewCategories?.apply {
             layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
             adapter = categoriesAdapter
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 }

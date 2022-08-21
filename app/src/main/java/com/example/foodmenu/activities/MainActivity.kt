@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
 
     val homeViewModel: HomeViewModel by lazy { //Laatste lijn instantieerd homeViewModel aangezien "by lazy"
         val mealDatabase = MealDatabase.getInstance(this)
@@ -27,9 +27,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val bottomNavigation = findViewById<BottomNavigationView>(binding.bottomNav.id)
+        val bottomNavigation = binding?.bottomNav?.let { findViewById<BottomNavigationView>(it.id) }
         val navController = Navigation.findNavController(this, R.id.mainNavHostFragment)
 
-        NavigationUI.setupWithNavController(bottomNavigation, navController)
+        if (bottomNavigation != null) {
+            NavigationUI.setupWithNavController(bottomNavigation, navController)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

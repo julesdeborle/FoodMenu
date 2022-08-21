@@ -23,7 +23,7 @@ import com.example.foodmenu.viewModel.HomeViewModel
 class FavoritesFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
-    private lateinit var binding: FragmentFavoritesBinding
+    private var binding: FragmentFavoritesBinding? = null
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var favoritesAdapter: FavoriteMealsAdapter
 
@@ -38,7 +38,7 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorites, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class FavoritesFragment : Fragment() {
             }
         }
 
-        ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.recViewFavorites)
+        ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding?.recViewFavorites)
 
     }
 
@@ -83,7 +83,7 @@ class FavoritesFragment : Fragment() {
 
     private fun prepareRecyclerView() {
         favoritesAdapter = FavoriteMealsAdapter()
-        binding.recViewFavorites.apply {
+        binding?.recViewFavorites?.apply {
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             adapter = favoritesAdapter
         }
@@ -96,5 +96,9 @@ class FavoritesFragment : Fragment() {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 
 }
