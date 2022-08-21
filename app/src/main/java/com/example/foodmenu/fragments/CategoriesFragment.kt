@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.foodmenu.R
 import com.example.foodmenu.activities.CategoryMealsActivity
 import com.example.foodmenu.activities.MainActivity
-import com.example.foodmenu.activities.MealActivity
 import com.example.foodmenu.adapters.CategoriesAdapter
 import com.example.foodmenu.databinding.FragmentCategoriesBinding
 import com.example.foodmenu.viewModel.HomeViewModel

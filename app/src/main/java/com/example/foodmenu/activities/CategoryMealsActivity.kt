@@ -12,7 +12,6 @@ import com.example.foodmenu.adapters.CategoryMealsAdapter
 import com.example.foodmenu.databinding.ActivityCategoryMealsBinding
 import com.example.foodmenu.fragments.HomeFragment
 import com.example.foodmenu.viewModel.CategoryMealsViewModel
-import com.example.foodmenu.viewModel.HomeViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {
     var binding: ActivityCategoryMealsBinding? = null

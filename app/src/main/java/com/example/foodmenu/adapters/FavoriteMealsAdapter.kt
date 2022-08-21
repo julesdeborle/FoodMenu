@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodmenu.databinding.MealItemBinding
 import com.example.foodmenu.pojo.Meal
-import com.example.foodmenu.pojo.MealsByCategory
 
 class FavoriteMealsAdapter :
     RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
