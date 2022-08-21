@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodmenu.databinding.MealItemBinding
 import com.example.foodmenu.pojo.Meal
+import com.example.foodmenu.pojo.MealsByCategory
 
 class FavoriteMealsAdapter :
     RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
-    private var favoriteMeals: List<Meal> = ArrayList()
-    private lateinit var onFavoriteClickListener: OnFavoriteClickListener
+    //    private var favoriteMeals: List<Meal> = ArrayList()
+    lateinit var onItemClick: ((Meal) -> Unit)
 
     inner class FavoriteMealsAdapterViewHolder(val binding: MealItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -42,21 +43,15 @@ class FavoriteMealsAdapter :
         val meal = differ.currentList[position]
         Glide.with(holder.itemView).load(meal.strMealThumb).into(holder.binding.imgMealFromCategory)
         holder.binding.tvMealName.text = meal.strMeal
+
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(differ.currentList[position])
+        }
     }
 
-    fun setOnFavoriteMealClickListener(onFavoriteClickListener: OnFavoriteClickListener) {
-        this.onFavoriteClickListener = onFavoriteClickListener
-    }
-
-//    fun getMealByPosition(position: Int):Meal{
-//        return favoriteMeals[position]
-//    }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
 
-    interface OnFavoriteClickListener {
-        fun onFavoriteClick(meal: Meal)
-    }
 }
