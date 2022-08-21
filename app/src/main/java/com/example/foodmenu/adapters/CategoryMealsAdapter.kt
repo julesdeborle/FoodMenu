@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodmenu.databinding.MealItemBinding
+import com.example.foodmenu.pojo.Category
 import com.example.foodmenu.pojo.MealsByCategory
 
 class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryMealsViewModel>() {
-    private var mealsList = ArrayList<MealsByCategory>()
+    private var mealsList:List<MealsByCategory> = ArrayList()
+    private lateinit var onItemClick: OnItemCategoryClicked
 
     fun setMealsList(mealsList: List<MealsByCategory>) {
         this.mealsList = mealsList as ArrayList<MealsByCategory>
@@ -23,9 +25,12 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
     }
 
     override fun onBindViewHolder(holder: CategoryMealsViewModel, position: Int) {
-        Glide.with(holder.itemView).load(mealsList[position].strMealThumb)
-            .into(holder.binding.imgMealFromCategory)
-        holder.binding.tvMealName.text = mealsList[position].strMeal
+        holder.binding.apply {
+            Glide.with(holder.itemView).load(mealsList[position].strMealThumb)
+                .into(imgMealFromCategory)
+            tvMealName.text = mealsList[position].strMeal
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -34,4 +39,8 @@ class CategoryMealsAdapter : RecyclerView.Adapter<CategoryMealsAdapter.CategoryM
 
     inner class CategoryMealsViewModel(val binding: MealItemBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    interface OnItemCategoryClicked{
+        fun onClickListener(category: MealsByCategory)
+    }
 }
