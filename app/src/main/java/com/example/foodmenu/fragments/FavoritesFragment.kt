@@ -1,6 +1,5 @@
 package com.example.foodmenu.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,14 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodmenu.R
 import com.example.foodmenu.activities.MainActivity
-import com.example.foodmenu.activities.MealActivity
 import com.example.foodmenu.adapters.FavoriteMealsAdapter
 import com.example.foodmenu.databinding.FragmentFavoritesBinding
 import com.example.foodmenu.viewModel.HomeViewModel

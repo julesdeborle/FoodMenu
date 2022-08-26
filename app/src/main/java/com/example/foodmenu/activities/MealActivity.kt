@@ -29,7 +29,7 @@ class MealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_meal)
 
-        val mealDatabase = MealDatabase.getInstance(context = this)
+        val mealDatabase = MealDatabase.getInstance(this)
         val viewModelFactory = MealViewModelFactory(mealDatabase)
 
         mealViewModel = ViewModelProvider(this, viewModelFactory)[MealViewModel::class.java]
