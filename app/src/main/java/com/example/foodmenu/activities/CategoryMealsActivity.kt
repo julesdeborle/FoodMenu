@@ -1,6 +1,5 @@
 package com.example.foodmenu.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -29,7 +28,7 @@ class CategoryMealsActivity : AppCompatActivity() {
 
         categoryMealsViewModel = ViewModelProvider(this)[CategoryMealsViewModel::class.java]
 
-        categoryMealsViewModel.getMealsByCategory(args.categoryName!!)
+        categoryMealsViewModel.getMealsByCategory(args.categoryName)
 
         categoryMealsViewModel.observeMealsLiveData().observe(this, Observer { mealsList ->
             binding?.tvCategoryCount?.text = "Meals in category: ${mealsList.size.toString()}"

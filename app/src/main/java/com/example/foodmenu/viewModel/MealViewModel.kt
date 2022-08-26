@@ -15,7 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MealViewModel(val mealDatabase: MealDatabase) : ViewModel() {
-    private var mealInfoLiveData = MutableLiveData<Meal>()
+    var mealInfoLiveData = MutableLiveData<Meal>()
 
     fun getMealDetail(id: String) {
         RetrofitInstance.api.getMealInfo(id).enqueue(object : Callback<MealList> {
@@ -34,10 +34,6 @@ class MealViewModel(val mealDatabase: MealDatabase) : ViewModel() {
     }
 
     fun observeMealInfoLiveData(): LiveData<Meal> {
-        return mealInfoLiveData
-    }
-
-    fun getMealInfoLiveData(): LiveData<Meal> {
         return mealInfoLiveData
     }
 

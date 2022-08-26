@@ -4,12 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.navArgs
-import com.bumptech.glide.Glide
 import com.example.foodmenu.R
 import com.example.foodmenu.database.MealDatabase
 import com.example.foodmenu.databinding.ActivityMealBinding
@@ -33,18 +31,25 @@ class MealActivity : AppCompatActivity() {
 
         val mealDatabase = MealDatabase.getInstance(context = this)
         val viewModelFactory = MealViewModelFactory(mealDatabase)
+
         mealViewModel = ViewModelProvider(this, viewModelFactory)[MealViewModel::class.java]
         mealViewModel.getMealDetail(args.mealId)
-        binding.viewModel = mealViewModel
 
-        observeMealDetailsLiveData()
+        binding.viewModel = mealViewModel
+        binding.lifecycleOwner = this
+
+        mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal> {
+            override fun onChanged(t: Meal) {
+                youtubeLink = t.strYoutube as String
+            }
+        })
 
         onVideoImageClick()
         onFavoriteClick()
     }
 
     private fun onFavoriteClick() {
-        binding?.btnFavorite?.setOnClickListener {
+        binding.btnFavorite.setOnClickListener {
             meal?.let {
                 mealViewModel.upsertMealToDatabase(it)
             }
@@ -53,36 +58,10 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun onVideoImageClick() {
-        binding?.imgYoutube?.setOnClickListener {
+        binding.imgYoutube.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
             startActivity(intent)
         }
-    }
-
-    private fun observeMealDetailsLiveData() {
-        mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal> {
-            override fun onChanged(t: Meal) {
-
-                meal = t
-                binding?.tvCategoryInfo?.text = "Category: ${meal?.strCategory}"
-                binding?.tvContent?.text = meal?.strInstructions
-                binding?.tvOriginInfo?.text = "Origin: ${meal?.strArea}"
-                binding?.let {
-                    Glide.with(applicationContext)
-                        .load(meal?.strMealThumb)
-                        .into(it.imgMealDetail)
-                }
-                binding?.collapsingToolbar?.title = meal?.strMeal
-                binding?.collapsingToolbar?.setExpandedTitleColor(
-                    ContextCompat.getColor(
-                        applicationContext,
-                        R.color.white
-                    )
-                )
-
-                youtubeLink = meal?.strYoutube as String
-            }
-        })
     }
 
 }
