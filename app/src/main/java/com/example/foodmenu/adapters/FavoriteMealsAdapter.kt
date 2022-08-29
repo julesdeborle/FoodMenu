@@ -11,7 +11,6 @@ import com.example.foodmenu.pojo.Meal
 
 class FavoriteMealsAdapter :
     RecyclerView.Adapter<FavoriteMealsAdapter.FavoriteMealsAdapterViewHolder>() {
-    //    private var favoriteMeals: List<Meal> = ArrayList()
     lateinit var onItemClick: ((Meal) -> Unit)
 
     inner class FavoriteMealsAdapterViewHolder(val binding: MealItemBinding) :
