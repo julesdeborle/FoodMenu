@@ -18,8 +18,7 @@ class APITest {
         uiScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    var randomMeal = RetrofitInstance.api.getRandomMeal()
-                    //println("randomMeal: $randomMeal")
+                    val randomMeal = RetrofitInstance.api.getRandomMeal()
                     Log.println(1,"randomMealTest", randomMeal.toString())
                 }catch (e: Exception){
                     println("An error occurred" + e.message)
@@ -33,7 +32,7 @@ class APITest {
         uiScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    var popularItems = RetrofitInstance.api.getPopularItems("Seafood")
+                    val popularItems = RetrofitInstance.api.getPopularItems("Seafood")
                     Log.println(1,"getPopularItemsTest", popularItems.toString())
                 }catch (e: Exception){
                     println("An error occurred" + e.message)
@@ -47,7 +46,7 @@ class APITest {
         uiScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    var mealsByCategory = RetrofitInstance.api.getMealsByCategory("chicken_breast")
+                    val mealsByCategory = RetrofitInstance.api.getMealsByCategory("chicken_breast")
                     Log.println(1,"getMealsByCategoryTest", mealsByCategory.toString())
                 }catch (e: Exception){
                     println("An error occurred" + e.message)
@@ -61,7 +60,7 @@ class APITest {
         uiScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    var mealInfo = RetrofitInstance.api.getMealInfo("52772")
+                    val mealInfo = RetrofitInstance.api.getMealInfo("52772")
                     Log.println(1,"getMealInfoTest", mealInfo.toString())
                 }catch (e: Exception){
                     println("An error occurred" + e.message)
