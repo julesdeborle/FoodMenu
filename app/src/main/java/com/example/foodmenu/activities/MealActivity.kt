@@ -40,6 +40,7 @@ class MealActivity : AppCompatActivity() {
 
         mealViewModel.observeMealInfoLiveData().observe(this, object : Observer<Meal> {
             override fun onChanged(t: Meal) {
+                meal = t
                 youtubeLink = t.strYoutube as String
             }
         })
